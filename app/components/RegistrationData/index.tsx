@@ -5,43 +5,32 @@ import useGetChildren from "@/app/hooks/useGetChildren";
 export default function RegistrationData() {
   const { childrenChart } = useGetChildren();
 
+  // Create a Map to aggregate children data by location
+  const locationDataMap = new Map();
 
-  const data = [["Location", "Number of Children"], ...childrenChart.map((child) => [child.location, child.number_of_children])];
+  childrenChart.forEach((child) => {
+    const { location, number_of_children } = child;
+    if (locationDataMap.has(location)) {
+      locationDataMap.set(location, locationDataMap.get(location) + number_of_children);
+    } else {
+      locationDataMap.set(location, number_of_children);
+    }
+  });
+
+  const data = [["Location", "Number of Children"]];
+
+  locationDataMap.forEach((children, location) => {
+    data.push([location, children]);
+  });
 
   const options = {
     chart: {
-      title: "Children Registered"
+      title: "Children Registered",
     },
-    colors: ["#FD620B"]
+    colors: ["#FD620B"],
   };
 
   return (
-    <Chart
-      chartType="Bar"
-      height="400px"
-      data={data}
-      options={options}
-    />
+    <Chart chartType="Bar" height="400px" data={data} options={options} />
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

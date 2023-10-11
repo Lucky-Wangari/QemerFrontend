@@ -64,10 +64,7 @@ function Overview() {
           </div>
         </div>
         <hr className="border-t-1 border-orange-500 my-5 w-[80%]" style={{ marginLeft: '97px' }} />
-        <h2 className="mx-auto mt-8 max-w-6xl px-4 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
-          Recent activity
-        </h2>
-
+   
         <div className="shadow sm:hidden">
           <ul role="list" className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
             <Bar />
