@@ -23,7 +23,7 @@ export default function Login() {
       <div className="bg-[#FFA45B] w-full grid-cols-1 md:grid-cols-2 md:w-full min-h-screen flex items-center justify-center">
         <div>
           <div className="absolute inset-0 bg-black bg-opacity-20 ">
-            <Image  src='/images/bb-.png' alt="logo" width={1200} height={50} style={{marginLeft: "20%"}} />
+            <Image  src='/images/child.png' alt="logo" width={1200} height={50} style={{marginLeft: "20%"}} />
           </div>
         </div>
 
