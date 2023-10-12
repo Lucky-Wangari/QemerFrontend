@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {ngoLogin} from '../utilities/utils';
 import { useRouter } from 'next/navigation';
 import cookie from 'cookiejs';
+
 interface LoginData {
   username: string;
   password: string;
@@ -16,7 +17,7 @@ const useLogin = (initialLoginData: LoginData) => {
         router.push('/location');
       }  else {
         router.push('/login');
-      }
+      }                     
       setUser(response)
 }
 return { user, handleSignin };

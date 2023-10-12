@@ -1,5 +1,4 @@
 
-
 import { BASE_URL } from "@/config";
 export async function POST(request: Request) {
   try {
@@ -9,6 +8,7 @@ export async function POST(request: Request) {
         statusText: "Failed",
       });
     }
+    
     const body = await request.json().then(response => response);
     const result = await fetch(`${BASE_URL}/ngo/login/`, {
       method: "POST",
