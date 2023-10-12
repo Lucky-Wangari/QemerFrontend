@@ -26,6 +26,7 @@ export default function RegistrationData() {
     chart: {
       title: "Children Registered",
     },
+
     colors: ["#FD620B"],
     bar: { groupWidth: "80%" },
   };

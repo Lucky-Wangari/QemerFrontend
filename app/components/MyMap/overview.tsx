@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { BsX } from "react-icons/bs";
-
-function Overview({ onClose, location }) {
+interface OverviewProps {
+  onClose: () => void;
+  location: string;
+}
+function Overview({ onClose, location }: { onClose: () => void; location: Location | null }) {
   const [totalChildren, setTotalChildren] = useState(0);
   const [totalEligibleParents, setTotalEligibleParents] = useState(0);
-
   useEffect(() => {
     const fetchChildrenAndGuardians = async () => {
       try {
         const childrenResponse = await fetch("https://qemer-backend-764e0de661a5.herokuapp.com/api/children/");
         const guardiansResponse = await fetch("https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/");
-
         if (!childrenResponse.ok || !guardiansResponse.ok) {
           throw new Error("Failed to fetch data");
         }
-
         const childrenData = await childrenResponse.json();
         const guardiansData = await guardiansResponse.json();
-
-        const filteredChildren = childrenData.filter((child) => child.location === location);
+        const filteredChildren = childrenData.filter((child: { location: any; }) => child.location === location);
         const filteredEligibleParents = guardiansData.filter(
-          (guardian) => guardian.location === location && guardian.is_eligible === true
+          (guardian: { location: any; is_eligible: boolean; }) => guardian.location === location && guardian.is_eligible === true
         );
-
         const childrenTotal = filteredChildren.length;
         const eligibleParentsTotal = filteredEligibleParents.length;
-
         setTotalChildren(childrenTotal);
         setTotalEligibleParents(eligibleParentsTotal);
       } catch (error) {
         console.error("Error fetching data ", error);
       }
     };
-
     fetchChildrenAndGuardians();
   }, [location]);
-
   return (
     <div className="bg-orange-500">
       <div>
@@ -88,5 +83,4 @@ function Overview({ onClose, location }) {
     </div>
   );
 }
-
 export default Overview;

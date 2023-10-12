@@ -9,26 +9,32 @@ export default function RecoveredData() {
 
   childrenChart.forEach((child) => {
     const { location, is_eligible } = child;
-    const eligibility = is_eligible ? "Eligible" : "Not Eligible";
 
     if (locationEligibilityMap.has(location)) {
-      locationEligibilityMap.set(location, locationEligibilityMap.get(location) + is_eligible);
+      locationEligibilityMap.set(location, locationEligibilityMap.get(location) + (is_eligible ? 1 : 0));
     } else {
-      locationEligibilityMap.set(location, is_eligible);
+      locationEligibilityMap.set(location, is_eligible ? 1 : 0);
     }
   });
 
-  const data = [["Location", "Eligibility"]];
+  const data = [["Location", "Eligible"]];
 
-  locationEligibilityMap.forEach((eligibility, location) => {
-    data.push([location, eligibility]);
+  locationEligibilityMap.forEach((eligibleCount, location) => {
+    data.push([location, eligibleCount]);
   });
 
   const options = {
     chart: {
-      title: "Children Eligible for Aid",
+      title: "Number of Eligible Children by Location",
+    },
+    hAxis: {
+      title: "Location",
+    },
+    vAxis: {
+      title: "Number of Eligible Children",
     },
     colors: ["#FD620B"],
+    bars: "vertical",
   };
 
   return (

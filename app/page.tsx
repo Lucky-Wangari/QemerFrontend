@@ -17,7 +17,7 @@ const Home = () => {
       router.push('/location');
     } else {
       setTimeout(() => {
-        router.push('/location');
+        router.push('/login');
       }, 2000);
     }
   }, [router]);

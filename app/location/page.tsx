@@ -8,7 +8,7 @@ import LocationInfo from '../components/locationInfo';
 
 const cards = [
   { name: 'Registered Children', href: '#', amount: '400' },
-  { name: 'Children Recovered ', href: '#', amount: '234' },
+  { name: 'Children Recovered', href: '#', amount: '234' },
   { name: 'Total Active CHVS', href: '#', amount: '154' },
 ];
 
@@ -55,17 +55,15 @@ function Location() {
                     <div className="flex-shrink-0 orange-border" />
                     <div className="w-0 flex-1  flex items-center">
                       <div>
-                        <Image src='/q-child-care.png' alt='' width={50} height={100} className='ml-10' />
+                        <Image src='/q-child-care.png' alt='' width={50} height={100} objectFit="contain" />
                       </div>
                       <div>
-                        <dl>
-                          <dd>
-                            <dt className="text-3xl font-bold text-white text-center mt-4 mr-10">{card.amount}</dt>
-                          </dd>
-                          <dd>
-                            <dt className="truncate text-lg font-medium text-white text-center ml-20">{card.name}</dt>
-                          </dd>
-                        </dl>
+                          <p  className="text-3xl font-bold text-white text-center mt-4 mr-10">
+                           {card.amount}
+                          </p>
+                          <p className="truncate text-lg font-medium text-white text-center ml-20">
+                            {card.name}
+                          </p>
                       </div>
                     </div>
                   </div>
@@ -75,7 +73,6 @@ function Location() {
           </div>
         </div>
         <hr className="border-t-1 w-[70%] border border-orange-500 mt-10 mb-10 mx-60" />
-
         <div className='grid grid-cols-2 '>
           <div className=''>
             <LocationInfo />
