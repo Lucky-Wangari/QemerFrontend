@@ -1,27 +1,40 @@
 import type { Config } from 'tailwindcss';
-
 const config: Config = {
   content: [
-    './pages/**/*.{ts,tsx,mdx}',
-    './components/**/*.{ts,tsx,mdx}',
-    './app/**/*.{ts,tsx,mdx}',
+    './components/**/*.{tsx}',
+    './app/**/*.{ts,tsx}',
   ],
   theme: {
+    screens: {
+      xs: '280px',
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+    },
     extend: {
       colors: {
-        'custom-orange': 'rgba(253, 98, 11, 0.95)',
-        'custom-color': '#000',
+        gray: {
+          DEFAULT: '#E5E5E5',
+          light: '#D9D9D9',
+        },
+        green: {
+          DEFAULT: '#156700',
+          light: '#B4FCA2',
+        },
+        white: '#FFF',
+        black: '#000',
+        red: '#E50E0E',
       },
       fontFamily: {
-        'laila': ['Laila', 'sans-serif'],
-        'ubuntu': ['Ubuntu', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       },
-      boxShadow: {
-        'custom': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      backgroundImage: {
+        homescreen: 'url("/images/bg-image.png")',
       },
-    },
+    
+  },
   },
   plugins: [],
-};
-
+};;;
 export default config;

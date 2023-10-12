@@ -76,7 +76,7 @@ function Location() {
         </div>
         <hr className="border-t-1 w-[70%] border border-orange-500 mt-10 mb-10 mx-60" />
 
-        <div className='grid grid-cols-2 mx-[10%]'>
+        <div className='grid grid-cols-2 '>
           <div className=''>
             <LocationInfo />
           </div>

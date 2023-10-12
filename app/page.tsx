@@ -18,14 +18,12 @@ const Home = () => {
     } else {
       setTimeout(() => {
         router.push('/login');
-      }, 2000);
+      }, 3000);
     }
   }, [router]);
 
   return (
-    <main className="flex min-h-screen w-screen flex-col items-center gap-10 justify-center p-24 mytext">
-      <Image src='/mwangaLogo.png' className="w-[120px]" alt="logo" width={200} height={200} />
-      <h1 className="font-bold text-6xl text-orange-500">MWANGA</h1>
+    <main className="bg-homescreen pt-40 bg-cover flex min-h-screen w-screen flex-col items-center justify-center">
       <div className="flex gap-3">
       </div>
     </main>

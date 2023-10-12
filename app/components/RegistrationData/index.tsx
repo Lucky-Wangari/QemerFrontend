@@ -5,7 +5,6 @@ import useGetChildren from "@/app/hooks/useGetChildren";
 export default function RegistrationData() {
   const { childrenChart } = useGetChildren();
 
-  // Create a Map to aggregate children data by location
   const locationDataMap = new Map();
 
   childrenChart.forEach((child) => {
@@ -28,6 +27,7 @@ export default function RegistrationData() {
       title: "Children Registered",
     },
     colors: ["#FD620B"],
+    bar: { groupWidth: "80%" },
   };
 
   return (

@@ -13,7 +13,6 @@ interface ChvData {
   last_name: string;
   phone_number: string;
   gender: string;
-  password: string;
 }
 
 const CHVTable = () => {
@@ -27,9 +26,7 @@ const CHVTable = () => {
     { title: 'Lastname', key: 'last_name' },
     { title: 'PhoneNumber', key: 'phone_number' },
     { title: 'Gender', key: 'gender' },
-    
   ];
-  
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -50,14 +47,14 @@ const CHVTable = () => {
   });
 
   return (
-    <div >
-      <div className="flex items-center justify-between  ">
-        <h1 className="page-heading  mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left' }}>
+    <div>
+      <div className="flex items-center justify-between">
+        <h1 className="page-heading mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left' }}>
           Community Health Volunteers
         </h1>
         <div>
           <Link href="/profile">
-            <Image src="/profile.png" alt="profile" width={45} height={45} className='mr-2'/>
+            <Image src="/profile.png" alt="profile" width={45} height={45} className="mr-2" />
           </Link>
         </div>
       </div>
@@ -77,5 +74,4 @@ export default function MyOverview() {
       <CHVTable />
     </DashLayout>
   );
-  }
-
+}
