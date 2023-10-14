@@ -69,7 +69,6 @@ const MyMap = () => {
             <Popup>
               {location.name}
               <br />
-              <button onClick={() => openOverview(location)}>Show Overview</button>
             </Popup>
           </Marker>
         ))}
