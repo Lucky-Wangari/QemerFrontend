@@ -30,16 +30,18 @@ const MyMap = () => {
     fetch("https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/")
       .then((response) => response.json())
       .then((data) => {
-        const newLocations = data.map((item: any) => {
+        const newLocations = data.map((item: any, index: number) => {
           const coordinates = item.location ? item.location.split(", ").map(Number) : null;
           if (coordinates && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+            const paddedId = (index + 1).toString().padStart(3, '0'); 
             return {
-              name: item.parent_name,
+              name: paddedId,
               coordinates: coordinates as [number, number],
             };
           }
           return null;
         });
+        
         if (newLocations.length === data.length) {
           setLocations(newLocations.filter(Boolean));
         } else {

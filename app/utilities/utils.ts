@@ -144,3 +144,23 @@ export const getUsers = async () => {
     return error;
   }
 };
+
+
+
+export const getParent = async()=>{
+  const url = '/api/get-singlehouse';
+
+  try {      
+    const response = await fetch(url);
+    console.log({response});
+    
+    if (!response.ok) {
+      throw new Error('Page not found');
+    }
+    const result = await response.json();
+    return result;
+  } catch (error:any) {
+    throw new Error(error.message || 'Failed to fetch guardian chart');
+  }
+
+}

@@ -8,7 +8,7 @@ export async function GET(){
                 statusText:'failed'
             })
         }
-        const response= await fetch (`${BASE_URL}/guardians/`)
+        const response= await fetch (`${BASE_URL}/guardians/{id}`)
         const result = await response.json();
         return new Response(JSON.stringify(result),{
             status:200,
