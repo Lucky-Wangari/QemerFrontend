@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/config";
 
-export async function GET(id: string) {
+export async function GET(request: Request) {
     try {
         if (!BASE_URL) {
             return new Response('BASE url not found', {
@@ -8,8 +8,8 @@ export async function GET(id: string) {
                 statusText: 'failed'
             });
         }
-        
-        const response = await fetch(`${BASE_URL}/guardians/<int:id>/`); 
+
+        const response = await fetch(`${BASE_URL}/guardians/<int:id>/`, request); 
         const result = await response.json();
         return new Response(JSON.stringify(result), {
             status: 200,

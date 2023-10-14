@@ -31,49 +31,51 @@
 import React, { useEffect, useState } from 'react';
 import ReusableTable from '../ atoms/TableAtom';
 import { GET } from '../api/get-singlehouse/route';
+import { BASE_URL } from '../config';
 
 
 const SingleHousehold = () => {
-    const [householdData, setHouseholdData] = useState(null);
-    const guardianId = '1'; 
+  const [householdData, setHouseholdData] = useState(null);
+  const guardianId = '1';
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await GET(guardianId);
-                const data = await response.json();
-                setHouseholdData(data);
-            } catch (error) {
-                console.error('Error fetching household data:', error);
-            }
-        };
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const request = new Request(`${BASE_URL}/guardians/${guardianId}/`);
+              const response = await GET(request);
+              const data = await response.json();
+              setHouseholdData(data);
+          } catch (error) {
+              console.error('Error fetching household data:', error);
+          }
+      };
 
-        fetchData();
-    }, [guardianId]);
+      fetchData();
+  }, [guardianId]);
 
-    const columns = [
-        { title: 'parent_name', key: 'parent_name' },
-        { title: 'national_id', key: 'national_id'},
-        { title: 'number_of_children', key: 'number_of_children'},
-        { title: 'is_eligible', key: 'is_eligible'},
-        { title: 'phone_number', key: 'phone_number'},
-    ];
+  const columns = [
+      { title: 'parent_name', key: 'parent_name' },
+      { title: 'national_id', key: 'national_id' },
+      { title: 'number_of_children', key: 'number_of_children' },
+      { title: 'is_eligible', key: 'is_eligible' },
+      { title: 'phone_number', key: 'phone_number' },
+  ];
 
-    const columnWidths = [70, 70];
-    const tableClassName = 'w-4/5 ml-48';
+  const columnWidths = [70, 70];
+  const tableClassName = 'w-4/5 ml-48';
 
-    return (
-        <div>
-            <h1 className="page-heading ml-20 mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left', marginLeft: '200px' }}>
-                Sarah's Household
-            </h1>
-            {householdData ? (
-                <ReusableTable columns={columns} data={householdData} columnWidths={columnWidths} tableClassName={tableClassName} />
-            ) : (
-                <p>Loading household data...</p>
-            )}
-        </div>
-    );
+  return (
+      <div>
+          <h1 className="page-heading ml-20 mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left', marginLeft: '200px' }}>
+              Household
+          </h1>
+          {householdData ? (
+              <ReusableTable columns={columns} data={householdData} columnWidths={columnWidths} tableClassName={tableClassName} />
+          ) : (
+              <p>Loading household data...</p>
+          )}
+      </div>
+  );
 };
-export default SingleHousehold;
 
+export default SingleHousehold;
