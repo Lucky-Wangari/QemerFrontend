@@ -2,11 +2,11 @@
 import React, { useState, ChangeEvent } from "react";
 import ReusableTable from "../ atoms/TableAtom";
 import SearchAtom from "../ atoms/SearchAtom";
-import { ColumnType } from "../types";
 import DashLayout from "../components/Sidebar";
 import Link from "next/link";
 import Image from "next/image";
 import useGetGuardian from "../hooks/getHouseholds";
+import { ColumnType } from "../types";
 
 interface GuardianData {
   eligibility: any;
@@ -18,11 +18,16 @@ interface GuardianData {
 }
 
 const DisplayPage = () => {
-  const result = useGetGuardian();
+  const result = useGetGuardian(); 
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const columns = [
+  if (!result || !result.success) {
+    return <div>Error loading data.</div>;
+  }
+
+  const success = Array.isArray(result.success) ? result.success : [];
+  const columns: ColumnType[] = [
     { title: "ParentName", key: "parent_name" },
     { title: "Location", key: "location" },
     { title: "Date", key: "created_at" },
@@ -60,33 +65,37 @@ const DisplayPage = () => {
   const columnWidths = [70, 70, 70, 70];
   const tableClassName = 'w-full';
 
-  
-  const filteredData = result.success.map((item: GuardianData) => ({
-    ...item,
-    created_at: new Date(item.created_at).toLocaleDateString(), 
-  })).filter((item: GuardianData) => {
+  const filteredData: GuardianData[] = success.filter((item: GuardianData) => {
     const searchTerm = searchQuery.toLowerCase();
-    return (
-      item.parent_name.toLowerCase().includes(searchTerm) ||
-      item.location.toLowerCase().includes(searchTerm) ||
-      item.created_at.toLowerCase().includes(searchTerm) ||
-      item.is_eligible.toLowerCase().includes(searchTerm)
-    );
-  });
+    const lowercaseParentName = item.parent_name.toLowerCase();
+    const lowercaseLocation = item.location.toLowerCase();
+    const lowercaseCreatedAt = item.created_at.toLowerCase();
+    const lowercaseIsEligible = item.is_eligible.toLowerCase();
 
-  const handleRowClick = (item: { id: any; }) => {
+    return (
+      lowercaseParentName.includes(searchTerm) ||
+      lowercaseLocation.includes(searchTerm) ||
+      lowercaseCreatedAt.includes(searchTerm) ||
+      lowercaseIsEligible.includes(searchTerm)
+    );
+  }).map((item: GuardianData) => ({
+    ...item,
+    created_at: new Date(item.created_at).toLocaleDateString(),
+  }));
+
+  const handleRowClick = (item: { id: any }) => {
     window.location.href = `/singleHousehold/${item.id}`;
   };
 
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="page-heading  mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left' }}>
+        <h1 className="page-heading mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left' }}>
           All Households
         </h1>
         <div>
-          <Link href='/profile'>
-            <Image src='/profile.png' alt='profile' width={45} height={45} className="mr-4" />
+          <Link href="/profile">
+            <Image src="/profile.png" alt="profile" width={45} height={45} className="mr-4" />
           </Link>
         </div>
       </div>
@@ -95,7 +104,7 @@ const DisplayPage = () => {
         handleSearchChange={handleSearchChange}
         placeholder="Search"
       />
-      
+
       <ReusableTable
         columns={columns}
         data={filteredData}
@@ -106,12 +115,12 @@ const DisplayPage = () => {
   );
 };
 
-export default function MyOverview() {
+const MyOverview = () => {
   return (
-    <>
-      <DashLayout>
-        <DisplayPage />
-      </DashLayout>
-    </>
-  )
+    <DashLayout>
+      <DisplayPage />
+    </DashLayout>
+  );
 };
+
+export default MyOverview;
