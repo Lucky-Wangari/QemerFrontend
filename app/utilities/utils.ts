@@ -164,3 +164,19 @@ export const getParent = async()=>{
   }
 
 }
+
+
+export async function getSingleHousehold(householdId:number) {
+  const url=`https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/${householdId}/`
+  try{
+      const response=await fetch(url)
+      if(!response.ok){
+          return `household with id ${householdId} not found`
+      }
+      const result=await response.json()
+      return result;
+  }
+  catch(error){
+      return error
+  }
+}

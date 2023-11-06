@@ -1,81 +1,81 @@
-// import React from 'react';
-// import ReusableTable from '../ atoms/TableAtom';
+import React, { useState, useEffect } from "react";
+import { getSingleHousehold } from '../utilities/utils';
+import { BsX } from "react-icons/bs";
 
-// const SingleHousehold = () => {
-//   const columns = [{title:'Title',key:'title'},
-//    {title:'Information', key:'information'}];
-//   const data = [
-//     { title: 'Name', information: 'Sarah Kamau'},
-//     { title: 'ID number', information: '47672'},
-//     { title: 'Location', information: 'Kayole1'},
-//     { title: 'Number of Children', information: '1'},
-//     { title: 'Name of Children', information:'Mila Kamau'},
-//     { title: 'Elgibility', information: 'Yes'},
-
-//   ];
-
-//   const columnWidths = [70, 70]; 
-//   const tableClassName = 'w-4/5 ml-48'; 
-
-//   return (
-//     <div>
-//   <h1 className="page-heading ml-20 mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left', marginLeft: '200px' }}>
-//   Sarahs Household
-// </h1>      <ReusableTable columns={columns} data={data} columnWidths={columnWidths} tableClassName={tableClassName} />
-//     </div>
-//   );
-// };
-// export default SingleHousehold;
-
-'use client'
-import React, { useEffect, useState } from 'react';
-import ReusableTable from '../ atoms/TableAtom';
-import { GET } from '../api/get-singlehouse/route';
-import { BASE_URL } from '../config';
-
-
-const SingleHousehold = () => {
-  const [householdData, setHouseholdData] = useState(null);
-  const guardianId = '1';
-
+interface SingleHouseholdProps {
+  onClose: () => void;
+  householdId: number;
+}
+const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {
+  const [household, setHousehold] = useState<any>({});
+  const [loading , setLoading] = useState(true);
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const request = new Request(`${BASE_URL}/guardians/${guardianId}/`);
-              const response = await GET(request);
-              const data = await response.json();
-              setHouseholdData(data);
-          } catch (error) {
-              console.error('Error fetching household data:', error);
-          }
-      };
-
-      fetchData();
-  }, [guardianId]);
-
-  const columns = [
-      { title: 'parent_name', key: 'parent_name' },
-      { title: 'national_id', key: 'national_id' },
-      { title: 'number_of_children', key: 'number_of_children' },
-      { title: 'is_eligible', key: 'is_eligible' },
-      { title: 'phone_number', key: 'phone_number' },
-  ];
-
-  const columnWidths = [70, 70];
-  const tableClassName = 'w-4/5 ml-48';
-
+    const fetchData = async () => {
+      try {
+        const householdData = await getSingleHousehold(householdId);
+        setHousehold(householdData);
+        setLoading(false)
+      } catch (error) {
+        console.error("Error fetching household details:", error);
+        setLoading(false)
+      }
+    };
+    fetchData();
+  }, [householdId]);
   return (
-      <div>
-          <h1 className="page-heading ml-20 mb-6 mt-6 text-orange-500" style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'left', marginLeft: '200px' }}>
-              Household
-          </h1>
-          {householdData ? (
-              <ReusableTable columns={columns} data={householdData} columnWidths={columnWidths} tableClassName={tableClassName} />
-          ) : (
-              <p>Loading household data...</p>
+    <div className="mt-9">
+    <div className="ml-64">
+      <button onClick={onClose} className="cursor-pointer">
+        <BsX size={24} />
+      </button>
+    </div>
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      <div className="flex">
+        <div className="ml-16 justify-center text-2xl text-white">
+          <p className="text-gray-600">
+           <span className="text-orange-600">Parent Name:</span>  {household.parent_name}
+            <br />
+            <span className="text-orange-600">National ID: </span>{household.national_id}
+            <br />
+           <span className="text-orange-600">Phone Number:</span>  {household.phone_number}
+            <br />
+            <span className="text-orange-600">Is Eligible: </span>{household.is_eligible ? "Yes" : "No"}
+            <br />
+           <span className="text-orange-600">Location: </span> {household.location}
+          </p>
+          {household.children && household.children.length > 0 && (
+            <div>
+              <p className="text-2xl text-white mt-4 mb-2">Children:</p>
+              <ul>
+                {household.children.map((child: any) => (
+                  <li key={child.id} className="text-gray-600">
+                    <span className="font-semibold text-orange-500">Child Name:</span> {child.child_name}
+                    <br />
+                    <span className="font-semibold">Date of Birth:</span> {child.date_of_birth}
+                    <br />
+                    <span className="font-semibold">Sex:</span> {child.sex}
+                    <br />
+                    <span className="font-semibold">Delayed Milestones:</span> {child.delayed_milestones}
+                    <br />
+                    <br />
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
+        </div>
       </div>
-  );
+    )}
+  </div>
+);
 };
-
 export default SingleHousehold;
+
+
+
+
+
+
+

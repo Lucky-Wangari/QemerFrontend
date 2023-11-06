@@ -5,13 +5,11 @@ import Bars from "../components/RegistrationData";
 import Image from "next/image";
 import Link from "next/link";
 import LocationInfo from '../components/locationInfo';
-
 const cards = [
-  { name: 'Registered Children', href: '#', amount: '400' },
-  { name: 'Children Recovered', href: '#', amount: '234' },
-  { name: 'Total Active CHVS', href: '#', amount: '154' },
+  { name: 'Registered Children', href: '#', amount: '8' },
+  { name: 'Children Recovered', href: '#', amount: '0' },
+  { name: 'Total Active CHVS', href: '#', amount: '6' },
 ];
-
 function Location() {
   return (
     <div className='bg-white'>
@@ -44,7 +42,6 @@ function Location() {
           </div>
         </div>
       </div>
-
       <div>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
@@ -102,7 +99,6 @@ function Location() {
     </div>
   );
 }
-
 export default function MyOverview() {
   return (
     <DashLayout>
@@ -110,3 +106,12 @@ export default function MyOverview() {
     </DashLayout>
   );
 }
+
+
+
+
+
+
+
+
+

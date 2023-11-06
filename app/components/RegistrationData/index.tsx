@@ -36,57 +36,63 @@
 //   );
 // }
 
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "@/app/components/client-libs";
 import useGetChildren from "@/app/hooks/useGetChildren";
-
-// Define a type for the locationNameMap
-type LocationNameMap = {
-  [location: string]: string;
-};
 
 export default function RegistrationData() {
   const { childrenChart } = useGetChildren();
 
-  // Create the location name mapping
-  const locationNameMap: LocationNameMap = {
-    "latitude1": "Location 1",
-    "latitude2": "Location 2",
-    // Add more mappings as needed
-  };
+  const [geocodedData, setGeocodedData] = useState([]);
 
-  const locationDataMap = new Map();
+  useEffect(() => {
+    const geocodeLocations = async () => {
+      const geocodedLocations = [];
 
-  childrenChart.forEach((child) => {
-    const { location, number_of_children } = child;
+      for (const child of childrenChart) {
+        const { location, number_of_children } = child;
+        const geocodedLocation = await reverseGeocode(location);
 
-    // Get the location name from the mapping
-    const locationName = locationNameMap[location] || location;
+        if (geocodedLocation) {
+          geocodedLocations.push([geocodedLocation, number_of_children]);
+        }
+      }
 
-    if (locationDataMap.has(locationName)) {
-      locationDataMap.set(locationName, locationDataMap.get(locationName) + number_of_children);
-    } else {
-      locationDataMap.set(locationName, number_of_children);
+      setGeocodedData(geocodedLocations);
+    };
+
+    geocodeLocations();
+  }, [childrenChart]);
+
+  const reverseGeocode = async (location) => {
+    try {
+      // Replace this with your reverse geocoding logic, e.g., calling a geocoding API
+      const geocodedResult = await yourReverseGeocodingFunction(location);
+
+      return geocodedResult;
+    } catch (error) {
+      console.error("Geocoding error:", error);
+      return "Location not found";
     }
-  });
-
-  const data = [["Location", "Number of Children"]];
-
-  locationDataMap.forEach((children, location) => {
-    data.push([location, children]);
-  });
+  };
 
   const options = {
     chart: {
       title: "Children Registered",
     },
-
+    hAxis: {
+      title: "Location",
+    },
+    vAxis: {
+      title: "Number of Children",
+    },
     colors: ["#FD620B"],
     bar: { groupWidth: "80%" },
   };
 
   return (
-    <Chart chartType="Bar" height="400px" data={data} options={options} />
+    <div>
+      <Chart chartType="Bar" height="400px" data={[["Location", "Number of Children"], ...geocodedData]} options={options} />
+    </div>
   );
 }
