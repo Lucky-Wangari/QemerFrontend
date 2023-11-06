@@ -56,7 +56,7 @@ const MyMap = () => {
       });
   }, []);
 
-  const customGeocoder = async (latlng) => {
+  const customGeocoder = async (latlng: any[]) => {
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng[0]}&lon=${latlng[1]}`);
       const data = await response.json();
