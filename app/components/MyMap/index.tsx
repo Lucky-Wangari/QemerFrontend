@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import L from "leaflet";
-import SingleHousehold from "@/app/singleHousehold/page";
 
 const blueIcon = new L.Icon({
   iconUrl: "locationRed.svg",
@@ -90,9 +89,7 @@ const MyMap = () => {
           </Marker>
         ))}
       </MapContainer>
-      {showOverview && selectedLocation && (
-        <SingleHousehold location={selectedLocation} onClose={closeOverview} householdId={selectedLocation.id} />
-      )}
+
     </div>
   );
 };
