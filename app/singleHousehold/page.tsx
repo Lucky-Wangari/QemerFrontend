@@ -16,7 +16,7 @@ interface SingleHouseholdProps {
   householdId: number;
 }
 
-export const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {
+const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {
   const [household, setHousehold] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
@@ -83,4 +83,6 @@ export const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) 
     </div>
   );
 };
+
+export default SingleHousehold;
 
