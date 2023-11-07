@@ -16,8 +16,7 @@ interface SingleHouseholdProps {
   householdId: number;
 }
 
-const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {
-  const [household, setHousehold] = useState<any>({});
+const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {  const [household, setHousehold] = useState<any>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
