@@ -1,16 +1,54 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DashLayout from '@/app/components/Sidebar';
 import Bars from "../components/RegistrationData";
 import Image from "next/image";
 import Link from "next/link";
 import LocationInfo from '../components/locationInfo';
-const cards = [
-  { name: 'Registered Children', href: '#', amount: '8' },
-  { name: 'Children Recovered', href: '#', amount: '0' },
-  { name: 'Total Active CHVS', href: '#', amount: '6' },
-];
+import { getTotalChildren } from '../utilities/utils';
+import { getTotalChvs } from '../utilities/utils';
+
+
+
 function Location() {
+  const [totalChildren, setTotalChildren] = useState(0);
+  const [totalChvs , setTotalChvs] = useState(0);
+
+
+  useEffect(() => {
+    async function fetchTotalChildren() {
+      try {
+        const data = await getTotalChildren();
+        if (data && data.total) {
+          setTotalChildren(data.total); 
+        }
+      } catch (error) {
+        console.error('Error fetching total children:', error);
+      }
+    }
+    fetchTotalChildren();
+
+    async function fetchTotalChvs() {
+      try{
+        const data = await getTotalChvs();
+        if (data && data.total){
+          setTotalChvs(data.total);
+        }
+      }catch(error){
+        console.error('Error fetching total CHVs:', error)
+      }
+    }
+    fetchTotalChvs();
+  }, []);
+
+
+
+  const cards = [
+    { name: 'Registered Children', href: '#', amount: totalChildren.toString() },
+    { name: 'Children Recovered', href: '#', amount: '0' },
+    { name: 'Total Active CHVS', href: '#', amount: totalChvs.toString() },
+  ];
+
   return (
     <div className='bg-white'>
       <div>

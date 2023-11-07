@@ -36,8 +36,9 @@ export const ngoLogin = async (username: string, password: string) => {
 }
 
 
+
 export const getGuardian = async()=>{
-  const url = '/api/get-households';
+  const url = 'https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/';
   try{
       const response = await fetch(url);
       const result = await response.json();
@@ -48,6 +49,31 @@ export const getGuardian = async()=>{
   }
 }
 
+
+export const getTotalChildren = async()=>{
+  const url = '/api/get-total-children';
+  try{
+      const response = await fetch(url);
+      const result = await response.json();
+      return result
+  }
+  catch(error:any){
+      return error.message
+  }
+}
+
+
+export const getTotalChvs = async()=>{
+  const url = '/api/get-total-chv';
+  try{
+      const response = await fetch(url);
+      const result = await response.json();
+      return result
+  }
+  catch(error:any){
+      return error.message
+  }
+}
 
 export const getChildren = async()=>{
   const url = '/api/get-charts';

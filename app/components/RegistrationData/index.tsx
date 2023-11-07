@@ -40,16 +40,18 @@ import React from "react";
 import Chart from "@/app/components/client-libs";
 import useGetChildren from "@/app/hooks/useGetChildren";
 
+interface LocationData {
+  [location: string]: number;
+}
+
 export default function RegistrationData() {
   const { childrenChart } = useGetChildren();
 
-  // Create an object to store the aggregated data
-  const locationData = {};
+  const locationData: LocationData = {};
 
   childrenChart.forEach((child) => {
     const { location, number_of_children } = child;
-    
-    // Check if the location exists in the aggregated data
+
     if (location in locationData) {
       locationData[location] += number_of_children;
     } else {
@@ -57,7 +59,6 @@ export default function RegistrationData() {
     }
   });
 
-  // Convert the aggregated data into an array
   const data = [["Location", "Number of Children"]];
 
   for (const location in locationData) {

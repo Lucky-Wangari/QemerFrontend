@@ -70,7 +70,10 @@ const DisplayPage = () => {
     const lowercaseParentName = item.parent_name.toLowerCase();
     const lowercaseLocation = item.location.toLowerCase();
     const lowercaseCreatedAt = item.created_at.toLowerCase();
-    const lowercaseIsEligible = item.is_eligible.toLowerCase();
+    // const lowercaseIsEligible = item.is_eligible.toLowerCase();
+
+
+    const lowercaseIsEligible =typeof item.is_eligible === "string" ? item.is_eligible.toLowerCase() : "";
 
     return (
       lowercaseParentName.includes(searchTerm) ||
