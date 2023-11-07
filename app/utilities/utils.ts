@@ -37,7 +37,7 @@ export const ngoLogin = async (username: string, password: string) => {
 
 
 export const getGuardian = async()=>{
-  const url = '/api/get-households';
+  const url = 'https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/';
   try{
       const response = await fetch(url);
       const result = await response.json();
