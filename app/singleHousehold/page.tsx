@@ -11,10 +11,10 @@ interface LocationData {
 }
 
 interface SingleHouseholdProps {
-  location: LocationData;
   onClose: () => void;
   householdId: number;
 }
+
 
 const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {  const [household, setHousehold] = useState<any>({});
   const [loading, setLoading] = useState(true);
