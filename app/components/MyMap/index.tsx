@@ -8,7 +8,7 @@ import L from "leaflet";
 import SingleHousehold from "@/app/singleHousehold/page";
 
 const blueIcon = new L.Icon({
-  iconUrl: "location.svg",
+  iconUrl: "locationRed.svg",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });

@@ -59,10 +59,10 @@ export default function RegistrationData() {
     }
   });
 
-  const data = [["Location", "Number of Children"]];
+  const data: Array<[string, string]> = [["Location", "Number of Children"]];
 
-  for (const location in locationData) {
-    data.push([location, locationData[location]]);
+  for (const [location, numberOffChildren] of Object.entries(locationData)) {
+    data.push([location, numberOffChildren.toString()]);
   }
 
   const options = {

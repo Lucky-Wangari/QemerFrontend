@@ -36,15 +36,16 @@ const CHVTable = () => {
   const columnWidths = [70, 70, 70, 70];
   const tableClassName = 'w-full';
 
-  const filteredData = result.success.filter((item: ChvData) => {
+  const filteredData = (result.success || []).filter((item?: ChvData) => {
     const searchTerm = searchQuery.toLowerCase();
     return (
-      item.username.toLowerCase().includes(searchTerm) ||
-      item.first_name.toLowerCase().includes(searchTerm) ||
-      item.last_name.toLowerCase().includes(searchTerm) ||
-      item.gender.toLowerCase().includes(searchTerm)
+      item?.username?.toLowerCase().includes(searchTerm) ||
+      item?.first_name?.toLowerCase().includes(searchTerm) ||
+      item?.last_name?.toLowerCase().includes(searchTerm) ||
+      item?.gender?.toLowerCase().includes(searchTerm)
     );
   });
+  
 
   return (
     <div>
@@ -67,6 +68,7 @@ const CHVTable = () => {
     </div>
   );
 };
+
 
 export default function MyOverview() {
   return (
