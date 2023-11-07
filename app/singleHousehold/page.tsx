@@ -84,6 +84,5 @@ const SingleHousehold = ({ onClose, householdId }: SingleHouseholdProps) => {
   );
 };
 
-export default SingleHousehold;
 
 
