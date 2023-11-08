@@ -8,14 +8,14 @@ export async function GET() {
         statusText: 'failed',
       });
     }
-    
     const response = await fetch(`${BASE_URL}/self_care/`);
     const data = await response.json();
 
-    const totalSum = data.reduce((acc: any, item: { total: any; }) => acc + item.total, 0);
+
+    const totalCHVs = data.length;
 
     const responseObj = {
-      total: totalSum, 
+      total: totalCHVs, 
       data: data,
     };
 
