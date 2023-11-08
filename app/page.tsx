@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import cookie from 'cookiejs';
 import { useRouter } from 'next/navigation'; 
-import Image from 'next/image';
 
 const Home = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);

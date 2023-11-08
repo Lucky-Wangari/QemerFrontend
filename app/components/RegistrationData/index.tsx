@@ -36,7 +36,7 @@ export default function RegistrationData() {
   };
 
   return (
-    <Chart chartType="Bar" height="400px" data={data} options={options}/>
+    <Chart chartType="Bar" height="400px" data={data} options={options} />
   );
 }
 
