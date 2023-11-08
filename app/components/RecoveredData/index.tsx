@@ -22,13 +22,11 @@ export default function RecoveredData() {
     }
   });
 
-  // Prepare the data in the format expected by the Chart component
   const data = [["Location", "Eligible"]];
   locationEligibilityMap.forEach((eligibleCount, location) => {
     data.push([location, eligibleCount]);
   });
 
-  // Chart options
   const options = {
     chart: {
       title: "Number of Eligible Children by Location",
@@ -43,7 +41,6 @@ export default function RecoveredData() {
     bars: "vertical",
   };
 
-  // Render the chart component
   return (
     <Chart chartType="Bar" height="400px" data={data} options={options} />
   );
