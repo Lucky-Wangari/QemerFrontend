@@ -12,17 +12,25 @@ interface GuardianData {
 }
 
 const useGetGuardian = () => {
-const [success, setSuccess] = useState<GuardianData[]>([]);
-const [fetchToggle, setFetchToggle] =  useState(false);
-useEffect(()=>{
-  (async()=>{
-    const response = await getGuardian()
-    setSuccess(response)
-    
-  })()
-}, [fetchToggle])
-return {success,
-refetch : ()=> setFetchToggle(!fetchToggle)}
+  const [success, setSuccess] = useState<GuardianData[]>([]);
+  const [fetchToggle, setFetchToggle] = useState(false);
+  const [error, setError] = useState<string | null>(null); 
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getGuardian();
+        setSuccess(response);
+        setError(null); 
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Error fetching data. Please try again."); 
+      }
+    })();
+  }, [fetchToggle]);
+
+  return { success, error, refetch: () => setFetchToggle(!fetchToggle) };
 };
+
 export default useGetGuardian;
 
