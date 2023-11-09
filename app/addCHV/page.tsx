@@ -5,6 +5,8 @@ import DashLayout from '@/app/components/Sidebar';
 import Link from 'next/link';
 import useCreateCHV from '../hooks/useCreateCHV';
 
+
+
 const CHVRegistrationForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -15,38 +17,46 @@ const CHVRegistrationForm = () => {
 
   const bodyData = {
     username,
-    first_name:firstName,
+    first_name: firstName,
     last_name: lastName,
     phone_number: phoneNumber,
     gender,
     password
+  };
 
-  }
-const {success, handleCreateCHV} = useCreateCHV(bodyData)
-  
-  const handleSubmit = async(e:any) => {
+  const { success, handleCreateCHV } = useCreateCHV(bodyData);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-   await  handleCreateCHV()
+    await handleCreateCHV();
+  };
 
-
-  }
-
-  
   return (
-    <div >
+    <div
+   
+    >
       <div className="flex items-center justify-between">
-        <h1 className='text-orange-600 font-bold text-2xl '>
+        <h1 className="text-orange-600 font-bold text-2xl">
           Add a Community Health Volunteer
         </h1>
         <div>
-          <Link href='/profile'>
-            <Image src='/profile.png' alt='profile' width={45} height={45} className="mr-5"/>
+          <Link href="/profile">
+            <Image
+              src="/profile.png"
+              alt="profile"
+              width={45}
+              height={45}
+              className="mr-5"
+            />
           </Link>
         </div>
       </div>
-      <div className='flex item-center justify-center'>
+      <div className="bg-cover bg-orange-600" style={{ backgroundImage: "url('/oranges.jpg')", opacity: 0.6 }}>
+
+
+      <div className="flex item-center justify-center">
         <div className="w-full max-w-md border-black mt-10 item-center">
-          <form className="bg-white shadow-md rounded px-20 pt-10 pb-20 " onSubmit={handleSubmit}>
+        <form className="bg-white shadow-md rounded px-20 pt-10 pb-20 mb-9" onSubmit={handleSubmit}>
             <div className="mb-4 flex flex-col">
               <label className="block text-gray-700 text-m font-bold mb-2" htmlFor="firstName">
                 First Name:
@@ -140,41 +150,18 @@ const {success, handleCreateCHV} = useCreateCHV(bodyData)
             </div>
             {success &&  Object.values(success)[0]}
           </form>
-        
         </div>
+        </div>
+
       </div>
     </div>
   );
 };
+
 export default function MyOverview() {
   return (
     <DashLayout>
-      <CHVRegistrationForm/>
+      <CHVRegistrationForm />
     </DashLayout>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

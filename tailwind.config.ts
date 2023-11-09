@@ -31,6 +31,7 @@ const config: Config = {
       },
       backgroundImage: {
         homescreen: 'url("/images/bg-image.png")',
+        addChv: 'url("/images/orange.png")'
       },
     
   },
