@@ -46,7 +46,7 @@ function Location() {
   const cards = [
     { name: 'Registered Children', href: '#', amount: totalChildren.toString() },
     { name: 'Children Recovered', href: '#', amount: '0' },
-    { name: 'Total Active CHVS', href: '#', amount: totalChvs.toString() },
+    { name: 'Total CHVS', href: '#', amount: totalChvs.toString() },
   ];
 
   return (
