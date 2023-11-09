@@ -6,6 +6,7 @@ interface ReusableTableProps {
   data: any;
   columnWidths: number[];
   tableClassName?: string;
+  onRowClick: (rowData: any) => void; 
 }
 
 const ReusableTable = ({
@@ -13,14 +14,14 @@ const ReusableTable = ({
   data,
   columnWidths,
   tableClassName,
+  onRowClick, 
 }: ReusableTableProps) => {
-  // Reverse the data array to display the latest one at the top
   const reversedData = data.slice().reverse();
 
   return (
     <div className="overflow-x-auto">
       <table className={`table-auto border border-[#7e7e7e] rounded text-[#49454f] ${tableClassName} w-[50%]`}>
-        <thead>
+      <thead>
           <tr>
             {columns.map((column: ColumnType, columnIndex: number) => (
               <th
@@ -37,6 +38,8 @@ const ReusableTable = ({
             <tr
               key={rowIndex}
               className="hover:bg-[#fde4ccec]"
+              onClick={() => onRowClick(row)} 
+              style={{ cursor: 'pointer' }} 
             >
               {columns.map((column: ColumnType, columnIndex: number) => (
                 <td

@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, ChangeEvent } from 'react';
+import DashLayout from '../components/Sidebar';
+
 import ReusableTable from '../ atoms/TableAtom';
 import SearchAtom from '../ atoms/SearchAtom';
-import DashLayout from '../components/Sidebar';
 import Link from 'next/link';
 import Image from 'next/image';
 import useGetCHV from '../hooks/getChv';
@@ -28,6 +29,7 @@ const CHVTable = () => {
     { title: 'Gender', key: 'gender' },
   ];
 
+  
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
@@ -45,7 +47,6 @@ const CHVTable = () => {
       (item?.gender ?? '').toLowerCase().includes(searchTerm)
     );
   });
-  
 
   return (
     <div>
@@ -64,11 +65,12 @@ const CHVTable = () => {
         handleSearchChange={handleSearchChange}
         placeholder="Search"
       />
-      <ReusableTable columns={columns} data={filteredData} columnWidths={columnWidths} tableClassName={tableClassName} />
+      <ReusableTable columns={columns} data={filteredData} columnWidths={columnWidths} tableClassName={tableClassName} onRowClick={function (rowData: any): void {
+        throw new Error('Function not implemented.');
+      } } />
     </div>
   );
 };
-
 
 export default function MyOverview() {
   return (
