@@ -5,6 +5,7 @@ import DashLayout from "../components/Sidebar";
 import Image from "next/image";
 import Link from "next/link";
 
+
 const MyMap = dynamic(() => import("../components/MyMap"), {
   ssr: false, 
 });

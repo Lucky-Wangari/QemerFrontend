@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import useGetGuardian from "../hooks/getHouseholds";
 import { ColumnType } from "../types";
+import SingleHousehold from "../oneHouseHold/page";
 
 
 interface GuardianData {
@@ -22,6 +23,8 @@ const DisplayPage = () => {
   const result = useGetGuardian(); 
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedHouseholdId, setSelectedHouseholdId] = useState<number | null>(null);
+
 
   if (!result || !result.success) {
     return <div>Error loading data.</div>;
@@ -88,8 +91,13 @@ const DisplayPage = () => {
   }));
 
   const handleRowClick = (item: { id: any }) => {
-    window.location.href = `/singleHousehold`;
+    setSelectedHouseholdId(item.id);
   };
+
+  const handleCloseSingleHousehold = () => {
+    setSelectedHouseholdId(null);
+  };
+
 
   return (
     <div>
@@ -115,7 +123,11 @@ const DisplayPage = () => {
         columnWidths={columnWidths}
         tableClassName={tableClassName}
         onRowClick={handleRowClick} 
+
       />
+      {selectedHouseholdId !== null && (
+        <SingleHousehold onClose={handleCloseSingleHousehold} householdId={selectedHouseholdId} />
+      )}
     </div>
   );
 };

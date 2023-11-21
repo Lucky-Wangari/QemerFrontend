@@ -192,18 +192,76 @@ export const getParent = async()=>{
 }
 
 
-export async function getSingleHousehold(householdId:number) {
-  const url=`https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/${householdId}/`
+// export async function getSingleHousehold(householdId:number) {
+//   const url=`https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/${householdId}/`
+//   try{
+//       const response=await fetch(url)
+//       if(!response.ok){
+//           return `household with id ${householdId} not found`
+//       }
+//       const result=await response.json()
+//       return result;
+//   }
+//   catch(error){
+//       return error
+//   }
+// }
+
+
+export async function getSelfCare() {
+  const url=`https://qemer-backend-764e0de661a5.herokuapp.com/api/self_care/`
   try{
       const response=await fetch(url)
       if(!response.ok){
-          return `household with id ${householdId} not found`
+          return `self care with id not found`
       }
       const result=await response.json()
       return result;
   }
   catch(error){
       return error
+  
   }
 }
+
+
+export async function getSingleHousehold(householdId: number) {
+  const householdUrl = `https://qemer-backend-764e0de661a5.herokuapp.com/api/guardians/${householdId}/`;
+  const selfCareUrl = `https://qemer-backend-764e0de661a5.herokuapp.com/api/self_care/`;
+
+  try {
+    const [householdResponse, selfCareResponse] = await Promise.all([
+      fetch(householdUrl),
+      fetch(selfCareUrl),
+    ]);
+
+    if (!householdResponse.ok || !selfCareResponse.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const householdData = await householdResponse.json();
+    const selfCareData = await selfCareResponse.json();
+
+    // Calculate total for each child
+    const childrenWithRecoveryStatus = householdData.children.map((child: any) => {
+      const childSelfCareData = selfCareData.find((entry: any) => entry.child === child.id);
+      const totalForChild = childSelfCareData ? childSelfCareData.total : 0;
+      const isChildRecovered = totalForChild > 10;
+
+      return {
+        ...child,
+        totalForChild,
+        isChildRecovered,
+      };
+    });
+
+    return {
+      ...householdData,
+      children: childrenWithRecoveryStatus,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+
 

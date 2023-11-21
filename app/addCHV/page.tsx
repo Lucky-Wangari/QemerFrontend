@@ -51,10 +51,8 @@ const CHVRegistrationForm = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-cover bg-orange-600" style={{ backgroundImage: "url('/oranges.jpg')", opacity: 0.6 }}>
-
-
-      <div className="flex item-center justify-center">
+      <div className="bg-cover bg-orange-600" style={{ backgroundImage: "url('/oranges.jpg')"}}>
+       <div className="flex item-center justify-center">
         <div className="w-full max-w-md border-black mt-10 item-center">
         <form className="bg-white shadow-md rounded px-20 pt-10 pb-20 mb-9" onSubmit={handleSubmit}>
             <div className="mb-4 flex flex-col">
@@ -152,8 +150,7 @@ const CHVRegistrationForm = () => {
           </form>
         </div>
         </div>
-
-      </div>
+    </div>
     </div>
   );
 };
