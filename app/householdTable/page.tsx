@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import useGetGuardian from "../hooks/getHouseholds";
 import { ColumnType } from "../types";
-import SingleHousehold from "../oneHouseHold/page";
+import SingleHousehold from "../components/oneHouseHold";
 
 
 interface GuardianData {

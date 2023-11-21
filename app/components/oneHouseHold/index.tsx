@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { getSingleHousehold } from "../utilities/utils";
+import { getSingleHousehold } from "../../utilities/utils";
 import { BsX } from "react-icons/bs";
 
 
