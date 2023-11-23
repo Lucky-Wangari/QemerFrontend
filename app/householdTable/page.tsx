@@ -14,7 +14,6 @@ interface GuardianData {
   eligibility: any;
   name: any;
   parent_name: string;
-  location: string;
   is_eligible: string;
   created_at: string;
 }
@@ -33,7 +32,6 @@ const DisplayPage = () => {
   const success = Array.isArray(result.success) ? result.success : [];
   const columns: ColumnType[] = [
     { title: "ParentName", key: "parent_name" },
-    { title: "Location", key: "location" },
     { title: "Date", key: "created_at" },
     {
       title: "Eligibility",
@@ -73,7 +71,6 @@ const DisplayPage = () => {
   const filteredData: GuardianData[] = success.filter((item: GuardianData) => {
     const searchTerm = searchQuery.toLowerCase();
     const lowercaseParentName = item.parent_name.toLowerCase();
-    const lowercaseLocation = item.location.toLowerCase();
     const lowercaseCreatedAt = item.created_at.toLowerCase();
 
 
@@ -81,7 +78,6 @@ const DisplayPage = () => {
 
     return (
       lowercaseParentName.includes(searchTerm) ||
-      lowercaseLocation.includes(searchTerm) ||
       lowercaseCreatedAt.includes(searchTerm) ||
       lowercaseIsEligible.includes(searchTerm)
     );

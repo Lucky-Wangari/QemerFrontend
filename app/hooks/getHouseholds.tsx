@@ -5,7 +5,6 @@ interface GuardianData {
   eligibility: any;
   name: any;
   parent_name: string;
-  location: string;
   is_eligible: string;
   created_at: string;
  
