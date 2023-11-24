@@ -31,7 +31,7 @@ const DisplayPage = () => {
 
   const success = Array.isArray(result.success) ? result.success : [];
   const columns: ColumnType[] = [
-    { title: "ParentName", key: "parent_name" },
+    { title: "Parent Name", key: "parent_name" },
     { title: "Date", key: "created_at" },
     {
       title: "Eligibility",
